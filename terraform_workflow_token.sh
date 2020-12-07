@@ -1,5 +1,5 @@
 #!/bin/bash
-#set -x
+set -x
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -62,9 +62,7 @@ function check_terraform_variables () {
 
 
 function impersonate () {
-    gcloud config set auth/impersonate_service_account ${terraform_service_account}@${project_id}.iam.gserviceaccount.com 2>/dev/null
-    
-    export GOOGLE_OAUTH_ACCESS_TOKEN=$(gcloud auth print-access-token 2>/dev/null)
+    export GOOGLE_OAUTH_ACCESS_TOKEN=$(gcloud --impersonate-service-account=${terraform_service_account}@${project_id}.iam.gserviceaccount.com auth print-access-token 2>/dev/null)
     if [  -z "$GOOGLE_OAUTH_ACCESS_TOKEN" ]; then
         printf "ERROR: Access token not available for session.\n\n"
         printf "Run gcloud auth print-access-token to diagnosis the root cause \n\n"
