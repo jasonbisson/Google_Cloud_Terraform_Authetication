@@ -42,11 +42,11 @@ cp terraform.tfvars.template ../terraform-service-account-<my unique deployment>
 
   - Terraform parent module location
   ```
-     export module=$HOME/terraform-google-<suffix of repo>/examples/<name of module> 
+     export terraform_module=$HOME/terraform-google-<suffix of repo>/examples/<name of module> 
   ```
   - Terraform variable file with custom values
   ```
-      export module_config=$HOME/path_to_tfvar
+      export terraform_module_config=$HOME/path_to_tfvar
   ```
   - Terraform State file
   ```
