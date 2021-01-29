@@ -43,14 +43,8 @@ This repository is the "walk" version of learning how to run terraform deploymen
 ### Infrastructure deployment with Terraform binary (Crawl)
 ```
 terraform init -backend=true -backend-config="bucket=<GCS Bucket for Terraform state files>" -backend-config="prefix=<unique_terraform_deployment_name>"
-```
-```
 terraform plan
-```
-```
 terraform apply
-```
-```
 terraform destroy
 ```
 
