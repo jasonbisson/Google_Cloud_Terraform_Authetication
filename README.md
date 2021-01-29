@@ -8,37 +8,55 @@ This repository is the "walk" version of learning how to run terraform deploymen
 - [terraform-provider-google](https://github.com/terraform-providers terraform-provider-google) plugin v3.44.0
 - [terraform-provider-google-beta](https://github.com/terraform-providers/terraform-provider-google-beta) plugin v3.44.0
 
-## Usage
-The script depends on the following prerequisites which has integration checks in case they are missed.
+## Service Accounts Management 
 
-### Chicken & Egg IAM Service account 
- - [Create a service account to create service accounts](https://github.com/jasonbisson/gcp_service_accounts/blob/master/create_service_account.sh)
+### Service Account for IAM policy
 
-- Assign Security Admin IAM role via console or gcloud at the GCP Organization level
+ - [Create a service account for IAM Policy updates](https://github.com/jasonbisson/gcp_service_accounts/blob/master/create_service_account.sh)
 
-### Service Account for Terraform deployment
+- Assign Security Admin IAM role via console or gcloud at the GCP Organization level.
+
+### Service Account for Infrastructure deployment
 
 - [Create a service account with unique name in service account project](https://github.com/jasonbisson/gcp_service_accounts/blob/master/create_service_account.sh)
 
-- Update Terraform variables to apply IAM roles to service account 
-```
-cd  ~
-git clone https://github.com/terraform-google-modules/terraform-google-iam.git
-mkdir terraform-service-account-<my unique deployment>
-cp terraform.tfvars.template ../terraform-service-account-<my unique deployment>/terraform.tfvars
-#Update required IAM roles in terraform.tfvars 
-```
+- Update IAM permissions of service account via console, gcloud, or [Terraform](https://github.com/terraform-google-modules/terraform-google-iam.git). 
 
-### Required Google Cloud variables & resources for workflow
+## Terraform Backend Management
+
+### Create Google Storage bucket to store Terraform state
   - Google Cloud Project ID is configured
   ```
     gcloud config set project PROJECT_ID 
   ```
-  - Google Storage Bucket to store Terraform state is created under the GCP project with the name $project_id-state
+  - Create Google storage bucket
   ```
     gsutil mb gs://<Bucket for Terraform state files>
   ```
-### Required Terraform variables for workflow
+  - Configure versioning for Google storage bucket
+  ```
+  gsutil versioning set on gs://<Bucket for Terraform state files>
+  ```
+
+## Infrastructure deployment options
+
+### Infrastructure deployment with Terraform binary
+```
+terraform init -backend=true -backend-config="bucket=<GCS Bucket for Terraform state files>" -backend-config="prefix=<unique_terraform_deployment_name>"
+```
+```
+terraform plan
+```
+```
+terraform apply
+```
+```
+terraform destroy
+```
+
+### Infrastructure deployment with wrapper script
+
+#### Export required variables
 
   - Terraform parent module location
   ```
@@ -50,17 +68,37 @@ cp terraform.tfvars.template ../terraform-service-account-<my unique deployment>
   ```
   - Terraform State file
   ```
-      export terraform_deployment_name=my_unique_terraform_deployment_name
+      export terraform_deployment_name=unique_terraform_deployment_name
   ```
-
-### Terraform deployment command
 
   - Deploy command with plan first, then apply, and for fun destroy.
   ```
   terraform_workflow_token.sh --terraform_service_account <shortname_terraform_deployment_service_account> --terraform_action <plan,apply,destroy>
   ```
 
-### Service account key script
 
-- This is a legacy script I used when I thought service account keys was the only option until read [Stop Downloading Service account keys](https://medium.com/@jryancanty/stop-downloading-google-cloud-service-account-keys-1811d44a97d9)
+### Infrastructure deployment with Cloud Build
+
+  - Run Terraform plan
+  ```
+  gcloud builds submit . --config=cloudbuild-plan.yaml --substitutions _STATEBUCKET='<GCS Bucket for Terraform state files>',_STATEFOLDER='<Unique name for deployment>'
+  ```
+
+  - Run Terraform apply
+  ```
+  gcloud builds submit . --config=cloudbuild-apply.yaml --substitutions _STATEBUCKET='<GCS Bucket for Terraform state files>',_STATEFOLDER='<Unique name for deployment>'
+  ```
+
+  - Run Terraform destroy
+  ```
+  gcloud builds submit . --config=cloudbuild-apply.yaml --substitutions _STATEBUCKET='<GCS Bucket for Terraform state files>',_STATEFOLDER='<Unique name for deployment>'
+  ```
+
+### [Infrastructure deployment with Github Cloud Build App](https://cloud.google.com/solutions/managing-infrastructure-as-code)
+
+
+
+
+
+
 
