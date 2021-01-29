@@ -1,5 +1,5 @@
 # Terraform Deployment
-This repository has crawl,walk,run and fly versions of learning how to run terraform deployments on Google Cloud. The first section focuses on moving towards the best practice of using a service account with least privilege for the deployment and Google Storage as the Terraform backend. The end goal will be running infrastructure deployments in a pipeline, but with this guide you'll build the muscle of knowing how it works before handing the keys to the robots. Then they'll know how to fix the pipeline when terraform "weirdness" occurs. 
+This repository has crawl, walk, run and fly versions of learning how to run terraform deployments on Google Cloud. The first section focuses on moving towards the best practice of using a service account with the least privilege for the deployment and Google Storage as the Terraform backend. The end goal will be running infrastructure deployments in a pipeline, but with this guide, you'll build the muscle of knowing how it works before handing the keys to the robots. Then they'll learn how to fix the pipeline when Terraform "weirdness" occurs.
 
 ## Software Requirements
 
