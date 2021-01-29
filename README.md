@@ -40,7 +40,7 @@ This repository is the "walk" version of learning how to run terraform deploymen
 
 ## Infrastructure deployment options
 
-### Infrastructure deployment with Terraform binary
+### Infrastructure deployment with Terraform binary (Crawl)
 ```
 terraform init -backend=true -backend-config="bucket=<GCS Bucket for Terraform state files>" -backend-config="prefix=<unique_terraform_deployment_name>"
 ```
@@ -54,7 +54,7 @@ terraform apply
 terraform destroy
 ```
 
-### Infrastructure deployment with wrapper script
+### Infrastructure deployment with wrapper script (Walk)
 
 #### Export required variables
 
@@ -77,7 +77,7 @@ terraform destroy
   ```
 
 
-### Infrastructure deployment with Cloud Build
+### Infrastructure deployment with Cloud Build (Run)
 
   - Run Terraform plan
   ```
