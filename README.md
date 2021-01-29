@@ -4,9 +4,9 @@ This repository is the "walk" version of learning how to run terraform deploymen
 ## Software Requirements
 
 ### Terraform plugins
-- [Terraform](https://www.terraform.io/downloads.html) 0.12.x
-- [terraform-provider-google](https://github.com/terraform-providers terraform-provider-google) plugin v3.44.0
-- [terraform-provider-google-beta](https://github.com/terraform-providers/terraform-provider-google-beta) plugin v3.44.0
+- [Terraform](https://www.terraform.io/downloads.html) 
+- [terraform-provider-google](https://github.com/terraform-providers/terraform-provider-google) 
+- [terraform-provider-google-beta](https://github.com/terraform-providers/terraform-provider-google-beta) 
 
 ## Service Accounts Management 
 
