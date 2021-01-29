@@ -1,5 +1,5 @@
 # Terraform Deployment
-This repository is the "walk" version of learning how to run terraform deployments on Google Cloud. This script will help move towards the best practice of using a service account with least privilege for the deployment and Google Storage to store the state remotely. The end goal will be running infrastructure deployments in a pipeline, but this script will give the user the knowledge of how it works. Then they'll know how to fix the pipeline when terraform "weirdness" occurs. Also, pipelines usually come back to bash script and now you have one.
+This repository has crawl,walk,run and fly versions of learning how to run terraform deployments on Google Cloud. The first section focuses on moving towards the best practice of using a service account with least privilege for the deployment and Google Storage as the Terraform backend. The end goal will be running infrastructure deployments in a pipeline, but with this guide you'll build the muscle of knowing how it works before handing the keys to the robots. Then they'll know how to fix the pipeline when terraform "weirdness" occurs. 
 
 ## Software Requirements
 
@@ -50,26 +50,22 @@ terraform destroy
 
 ### Infrastructure deployment with wrapper script (Walk)
 
-#### Export required variables
-
-  - Terraform parent module location
+  - Export Terraform parent module variable
   ```
      export terraform_module=$HOME/terraform-google-<suffix of repo>/examples/<name of module> 
   ```
-  - Terraform variable file with custom values
+  - Export Terraform custom variable file 
   ```
       export terraform_module_config=$HOME/path_to_tfvar
   ```
-  - Terraform State file
+  - Export Terraform state file name
   ```
       export terraform_deployment_name=unique_terraform_deployment_name
   ```
-
-  - Deploy command with plan first, then apply, and for fun destroy.
+  - Run script with plan first, then apply, and destroy.
   ```
   terraform_workflow_token.sh --terraform_service_account <shortname_terraform_deployment_service_account> --terraform_action <plan,apply,destroy>
   ```
-
 
 ### Infrastructure deployment with Cloud Build (Run)
 
