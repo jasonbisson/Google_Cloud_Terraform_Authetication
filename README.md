@@ -8,15 +8,15 @@ This repository is the "walk" version of learning how to run terraform deploymen
 - [terraform-provider-google](https://github.com/terraform-providers/terraform-provider-google) 
 - [terraform-provider-google-beta](https://github.com/terraform-providers/terraform-provider-google-beta) 
 
-## Service Accounts Management 
+## Google Service Account Management 
 
-### Service Account for IAM policy
+### IAM Policy service account
 
  - [Create a service account for IAM Policy updates](https://github.com/jasonbisson/gcp_service_accounts/blob/master/create_service_account.sh)
 
 - Assign Security Admin IAM role via console or gcloud at the GCP Organization level.
 
-### Service Account for Infrastructure deployment
+### Infrastructure deployment service account
 
 - [Create a service account with unique name in service account project](https://github.com/jasonbisson/gcp_service_accounts/blob/master/create_service_account.sh)
 
@@ -88,7 +88,7 @@ terraform destroy
   gcloud builds submit . --config=cloudbuild-apply.yaml --substitutions _STATEBUCKET='<GCS Bucket for Terraform state files>',_STATEFOLDER='<Unique name for deployment>'
   ```
 
-### [Infrastructure deployment with Github Cloud Build App](https://cloud.google.com/solutions/managing-infrastructure-as-code)
+### [Infrastructure deployment with Github Cloud Build App](https://cloud.google.com/solutions/managing-infrastructure-as-code) (Fly)
 
 
 
